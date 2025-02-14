@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.4.3/luxon.min.js"></script>
+    <style>
+        body {
+          margin-top: 80px;
+          font-size: medium;
+          background-image: url("https://plugins-media.makeupar.com/smb/blog/post/2023-07-18/64eaaa25-ffab-45f6-835e-5bc2b8fdefca.jpg");
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
+         .container{
+            text-align: center;
+            margin: auto;
+            padding: 20px;
+            max-width: 400px;
+       backdrop-filter: blur(8px);
+       border:2px solid black;
+        }
+        input {
+            border-color:aquamarine;
+            padding:10px 10px;
+        }
+        button {
+            margin-top: 20px;
+            padding:10px 15px;
+            background-color: darkgray;
+        }
+    </style>
+</head>
+<body>
+    <div class = "container">
+    <h1>Age Calculator</h1>
+    <h4>Enter your birth date:</h4>
+    <input id = "date" type="date"></input>
+    <br>
+    <button onClick="calculate()">calculate</button>
+    <P id = "res"></P>
+    </div>
+    <script>
+        function calculate() {
+ let birthday = document.getElementById("date").value;
+ let out = document.getElementById("res");
+ 
+  if(!birthday){
+    out.textContent = "please enter a valid birthday date";
+    return;
+  }
+  let presentdate = luxon.DateTime.now();
+  let birthdate = luxon.DateTime.fromISO(birthday);
+
+  if(birthdate > presentdate) {
+    out.textContent = "birthdate cannot be in future";
+    return;
+  }
+   let agedif = presentdate.diff(birthdate,["years","months","days"]).toObject(); 
+  let years = Math.floor(agedif.years);
+  let month = Math.floor(agedif.months);
+  let day = Math.floor(agedif.days);
+  out.textContent = "You are " + years + " years " + month + " months " + day + " days old";
+        }
+    </script>
+</body>
+</html>
